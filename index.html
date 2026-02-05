@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <style>
+        :root {
+            --primary-pink: #ff4d6d;
+            --secondary-pink: #ff85a1;
+            --soft-white: #fff0f3;
+            --text-color: #590d22;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--soft-white);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Project Branding (Non-changeable) */
+        header {
+            padding: 10px;
+            text-align: center;
+            width: 100%;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .logo { width: 50px; height: 50px; border-radius: 50%; }
+        
+        footer {
+            margin-top: auto;
+            padding: 20px;
+            font-size: 0.8rem;
+            text-align: center;
+            background: #fff;
+            width: 100%;
+        }
+
+        /* Main Container */
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        #main-gif {
+            width: 250px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            min-height: 100px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: bold;
+        }
+
+        #yesBtn {
+            background-color: #43aa8b;
+            color: white;
+            z-index: 100;
+        }
+
+        #noBtn {
+            background-color: var(--primary-pink);
+            color: white;
+            position: relative;
+        }
+
+        /* Success Screen */
+        #success-screen {
+            display: none;
+            animation: fadeIn 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .success-img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 20px;
+            margin: 15px 0;
+        }
+
+        #date-details {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 20px 0;
+            color: var(--primary-pink);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.5rem; }
+            #main-gif { width: 200px; }
+            #date-details { font-size: 1.2rem; }
+        }
+
+        /* Floating hearts animation */
+        .heart {
+            position: fixed;
+            font-size: 2rem;
+            animation: floatUp 3s ease-in forwards;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh) scale(1.5);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="astor_logo.png" alt="Logo" class="logo">
+        <div style="font-weight: bold;">Created by: Astor</div>
+    </header>
+
+    <div class="container">
+        <div id="question-screen">
+            <h1 id="valentine-question">Will you be my Valentine, [Name]?</h1>
+            <img id="main-gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp6dzB0bmZ6bW96bmZ6bW96bmZ6bW96bmZ6bW96bmZ6bW96JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJLufpNwSULPk77/giphy.gif" alt="Thinking GIF">
+            
+            <div class="buttons">
+                <button id="yesBtn">Yes</button>
+                <button id="noBtn">No</button>
+            </div>
+        </div>
+
+        <div id="success-screen">
+            <h1>YAY! Congrats! ❤️</h1>
+            <img id="success-gif" class="success-img" src="" alt="Success">
+            <p id="date-details">Our Date: [Location] @ [Time]</p>
+            <p>Can't wait to see you!</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>Project by Astor | Instagram: @astor.stem </p>
+        <p>Email: astor.stem@gmail.com </p>
+    </footer>
+
+    <audio id="celebrationMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="hurtSound">
+        <source src="minecraft_hurt.mp3" type="audio/mpeg">
+    </audio>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        /* --- USER CONFIGURATION (Change these) --- */
+        const config = {
+            targetName: "Suvdaa",
+            question: "Will you be my Valentine?",
+            thinkingGif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp6dzB0bmZ6bW96bmZ6bW96bmZ6bW96bmZ6bW96bmZ6bW96JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJLufpNwSULPk77/giphy.gif",
+            successGif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNWU2bXozdXVrYmszbWRjejI0Z2NrbXp4OHdvbnExc3NhdHJpZmJlMSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/9ZsHoKnjg4ykx3mzTR/giphy.gif",
+            dateLocation: "Ulaanbaatar Park",
+            dateTime: "Feb 14th @ 1:00 PM"
+        };
+
+        /* --- LOGIC --- */
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const questionScreen = document.getElementById('question-screen');
+        const successScreen = document.getElementById('success-screen');
+        const celebrationMusic = document.getElementById('celebrationMusic');
+        const hurtSound = document.getElementById('hurtSound');
+        
+        let noCount = 0;
+
+        // Apply config
+        document.getElementById('valentine-question').innerText = `${config.question}, ${config.targetName}?`;
+        document.getElementById('date-details').innerText = `Location: ${config.dateLocation} | Time: ${config.dateTime}`;
+        document.getElementById('success-gif').src = config.successGif;
+
+        noBtn.addEventListener('click', () => {
+            noCount++;
+            
+            // Play Minecraft hurt sound
+            hurtSound.currentTime = 0; // Reset to start
+            hurtSound.play().catch(() => {});
+            
+            // 1. Make Yes button bigger
+            let currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+            yesBtn.style.fontSize = (currentSize * 1.4) + 'px';
+            yesBtn.style.padding = (currentSize * 1.1) + 'px ' + (currentSize * 2) + 'px';
+
+            // 2. Change logic after 5 clicks
+            if (noCount >= 5) {
+                noBtn.style.position = 'fixed';
+                moveButton();
+            }
+        });
+
+        // Teleport button
+        function moveButton() {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        }
+
+        noBtn.addEventListener('mouseover', () => {
+            if (noCount >= 5) moveButton();
+        });
+
+        yesBtn.addEventListener('click', () => {
+            // Start celebration music
+            celebrationMusic.play().catch(() => {});
+            
+            // Show success screen
+            questionScreen.style.display = 'none';
+            successScreen.style.display = 'block';
+            noBtn.style.display = 'none';
+            
+            // Create many floating hearts
+            createHearts();
+        });
+        
+        function createHearts() {
+            const heartEmojis = ['❤️', '💕', '💖', '💗', '💓', '💝', '💘'];
+            const heartsCount = 50; // Number of hearts to create
+            
+            for (let i = 0; i < heartsCount; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.innerText = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+                    
+                    // Random horizontal position
+                    heart.style.left = Math.random() * 100 + '%';
+                    // Start from bottom of screen
+                    heart.style.top = '100%';
+                    // Random animation duration between 2-4 seconds
+                    heart.style.animationDuration = (2 + Math.random() * 2) + 's';
+                    // Random delay
+                    heart.style.animationDelay = (Math.random() * 0.5) + 's';
+                    
+                    document.body.appendChild(heart);
+                    
+                    // Remove heart after animation
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 5000);
+                }, i * 100); // Stagger the creation
+            }
+        }
+    </script>
+</body>
+</html>
