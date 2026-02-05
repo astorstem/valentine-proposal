@@ -13,7 +13,7 @@
 
 2. **Хуудсаа өөрчлөх**
 * `valentine.html` файлыг дурын текст засварлагч (Notepad, VS Code г.м) дээр нээнэ.
-* **USER CONFIGURATION** хэсгийг олно (ойролцоогоор 170-р мөрөнд).
+* **USER CONFIGURATION** хэсгийг олно (ойролцоогоор 400-р мөрөнд).
 * Доорх зааврын дагуу утгуудыг өөрчилнө.
 
 
@@ -37,12 +37,12 @@
 ```javascript
 /* --- USER CONFIGURATION (Эдгээрийг өөрчил) --- */
 const config = {
-    targetName: "Хайрт минь",
-    question: "Миний Валентин болох уу?",
+    targetName: "Sweetheart",
+    question: "Will you be my Valentine?",
     thinkingGif: "https://media.giphy.com/media/.../giphy.gif",
     successGif: "https://media.giphy.com/.../giphy.gif",
-    dateLocation: "Улаанбаатар Парк",
-    dateTime: "2-р сарын 14 @ 13:00"
+    dateLocation: "Ulaanbaatar Park",
+    dateTime: "Feb 14th @ 1:00PM"
 };
 
 ```
